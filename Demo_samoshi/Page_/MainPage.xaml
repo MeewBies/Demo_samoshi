@@ -1,0 +1,102 @@
+﻿<Page x:Class="Demo_samoshi.Page_.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Demo_samoshi.Page_"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="MainPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.RowSpan="3" Background="White" Height="450" VerticalAlignment="Top"/>
+        <Grid Grid.Row="2" Background="#FFB1B1B1"/>
+
+        <StackPanel Orientation="Horizontal">
+
+            <TextBlock Text="Поиск :" Width="40" Height="25" Margin="5,10,5,5"/>
+            <TextBox x:Name="tb_search" TextChanged="TextBox_TextChanged" Width="200" Height="25" Margin="5"/>
+            <ComboBox Name="CB_search"  SelectionChanged="CB_search_SelectionChanged" DisplayMemberPath="Title" Width="100" Height="25" Margin="5">
+            </ComboBox>
+
+            <ComboBox Name="CB_list" SelectedIndex="0" SelectionChanged="CB_list_SelectionChanged" Width="50" Height="25" Margin="5">
+                <TextBlock Text="10"/>
+                <TextBlock Text="50"/>
+                <TextBlock Text="200"/>
+                <TextBlock Text="Все"/>
+            </ComboBox>
+
+        </StackPanel>
+
+
+        <ListView x:Name="LVmaterial" Grid.Row="1">
+            
+            <ListView.ItemContainerStyle>
+                <Style x:Name="ListPaint" TargetType="ListViewItem" >
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding CountInStock}" Value="20">
+                            <Setter Property="Background" Value="#FFEA6658"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
+            
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns>
+                        <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}" Width="100"/>
+                        <GridViewColumn Header="CountInPack" DisplayMemberBinding="{Binding CountInPack}" Width="80"/>
+                        <GridViewColumn Header="Unit" DisplayMemberBinding="{Binding Unit}" Width="60"/>
+                        <GridViewColumn Header="CountInStock" DisplayMemberBinding="{Binding CountInStock}" Width="80"/>
+                        <GridViewColumn Header="MinCount" DisplayMemberBinding="{Binding MinCount}" Width="70"/>
+                        <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}" Width="80"/>
+                        <GridViewColumn Header="Cost"  DisplayMemberBinding="{Binding Cost}" Width="85"/>
+                        <GridViewColumn Width="150" Header="Image">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding Image}" Width="100"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="MaterialTypeID"  DisplayMemberBinding="{Binding MaterialTypeID}" Width="90"/>
+                        <GridViewColumn Header="      ">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button x:Name="Btl_del" Content="Удалить" Width="80" Height="25"  Background="Orchid" Click="Btl_del_Click"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="      ">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button x:Name="Btn_edit" Content="Изменить" Width="80" Height="25" Background="#FFDED730" Click="Btn_edit_Click"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+            
+        </ListView>
+        
+        
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            
+            <Button Name="Btn_add" Click="Btn_add_Click" Content="Добавить" Background="#FFA7F9FF"  Width="100" Height="25" Margin="5,5,5,5"/>
+            <Button Width="70" Height="25" Name="Page_a" Content="ᐊ Назад" Click="Page_a_Click" Margin="225,5,5,5" Background="#00FCFFFC" BorderBrush="#00707070" Foreground="White"/>
+            <TextBlock Text="0" Name="nPage" VerticalAlignment="Center"/>
+            <TextBlock Text="/" VerticalAlignment="Center"/>
+            <TextBlock Text="0" IsVisibleChanged="AllPage_IsVisibleChanged"  Name="AllPage" VerticalAlignment="Center"/>
+            <Button Width="70" Height="25" Name="Page_b" Click="Page_b_Click" Content="Вперед ᐅ" Margin="5" Background="#00DDDDDD" BorderBrush="#00707070" Foreground="White"/>
+            
+        </StackPanel>
+
+    </Grid>
+</Page>
